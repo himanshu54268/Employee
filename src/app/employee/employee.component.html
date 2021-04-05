@@ -1,0 +1,67 @@
+<div>
+    <p-card header="Employee Dashboard" [style]="{'width': '100%', 'margin-bottom': '2em'}">
+        <div>
+            <p>Please click the below buttons to test the functionalities</p>
+            <span>
+                <p-button label="Remove Dev Employees" title="Remove all candidate from Development Department"
+                    (click)="removeDevEmp()"></p-button>
+            </span>
+            <span style="margin-left: 10px;">
+                <p-button label="Emp Count per Department" title="Get distinct department and count of candidates"
+                    (click)="empCount()"></p-button>
+            </span>
+            <span style="margin-left: 10px;">
+                <p-button label="2+ years Experienced Emp" title="Find all candidates with Experience more than 2 years"
+                    (click)="getExpEmployee()"></p-button>
+            </span>
+            <span style="margin-left: 10px;">
+                <p-button label="Get All Employees" title="Get Employees" (click)="getEmployee()"></p-button>
+            </span>
+        </div>
+        <p-table #dt1 [value]="tableData">
+            <ng-template pTemplate="caption">
+                <div class="p-d-flex">
+                    <span class="p-input-icon-left p-ml-auto">
+                        <i class="pi pi-search"></i>
+                        <input pInputText type="text" (input)="filterGlobal($event.target)"
+                            placeholder="Search by Name" />
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>ID</th>
+                    <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon>
+                    </th>
+                    <th>Department</th>
+                    <th pSortableColumn="joining_date">Joining Date <p-sortIcon field="joining_date"></p-sortIcon>
+                    </th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-data>
+                <tr>
+                    <td *ngFor="let col of cols">
+                        {{data[col.field]}}
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+</div>
+
+<p-dialog header="Title" [(visible)]="display">
+    <p-table [value]="empData">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>Department</th>
+                <th>Number of Employees</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data>
+            <tr>
+                <td>{{data['dep']}}</td>
+                <td>{{data['count']}}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</p-dialog>
